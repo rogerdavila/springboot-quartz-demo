@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "spring.datasource.quartz.driver-class-name",
+    "type": "java.lang.String",
+    "description": "Fully qualified name of the JDBC driver for quartz connection."
+  },
+  {
+    "name": "spring.datasource.quartz.jdbc-url",
+    "type": "java.lang.String",
+    "description": "JDBC URL of the quartz database."
+  },
+  {
+    "name": "spring.datasource.quartz.username",
+    "type": "java.lang.String",
+    "description": "Username for the quartz database"
+  },
+  {
+    "name": "spring.datasource.quartz.password",
+    "type": "java.lang.String",
+    "description": "Password for the quartz database"
+  }
+]}
