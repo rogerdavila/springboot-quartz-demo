@@ -30,8 +30,7 @@ public class DemoScheduler {
 		JobDataMap jobDataMap = new JobDataMap();
 		jobDataMap.put("flag", false);
 		
-		JobBuilder jobBuilder = JobBuilder.newJob()
-				.ofType(DemoJob.class)
+		JobBuilder jobBuilder = JobBuilder.newJob(DemoJob.class)
 				.storeDurably()
 				.withIdentity("demo_job", "DemoGroup")
 				.withDescription("Invoke of DemoJob")
@@ -45,8 +44,7 @@ public class DemoScheduler {
 		JobDataMap jobDataMap = new JobDataMap();
 		jobDataMap.put("flag", true);
 		
-		JobBuilder jobBuilder = JobBuilder.newJob()
-				.ofType(DemoJob.class)
+		JobBuilder jobBuilder = JobBuilder.newJob(DemoJob.class)
 				.storeDurably()
 				.withIdentity("demo_job1", "DemoGroup")
 				.withDescription("Invoke of DemoJob1")
