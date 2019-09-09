@@ -16,6 +16,6 @@ public class DemoJob implements Job{
 	
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		demoService.executeDemoJob();
+		demoService.executeDemoJob((boolean)context.getJobDetail().getJobDataMap().get("flag"));
 	}
 }

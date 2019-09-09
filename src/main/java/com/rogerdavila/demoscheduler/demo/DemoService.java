@@ -15,7 +15,8 @@ public class DemoService {
 
 	private AtomicInteger count = new AtomicInteger();
 
-	public void executeDemoJob() {
+	public void executeDemoJob(boolean flag) {
+		logger.info("Job flag is: {}", flag );
 		logger.info("Sample job has finished with count: {}", count.incrementAndGet());
 	}
 }
