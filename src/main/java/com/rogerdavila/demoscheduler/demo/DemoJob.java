@@ -16,6 +16,6 @@ public class DemoJob implements Job{
 	
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		demoService.executeDemoJob((boolean)context.getJobDetail().getJobDataMap().get("flag"));
+		demoService.executeDemoJob((boolean)context.getMergedJobDataMap().get("flag"));
 	}
 }

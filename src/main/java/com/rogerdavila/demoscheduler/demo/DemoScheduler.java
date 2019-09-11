@@ -19,6 +19,8 @@ import org.springframework.context.annotation.Configuration;
 public class DemoScheduler {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
+	
+	private static final String GROUP_NAME = "DemoGroup";
 
 	@PostConstruct
 	public void init() {
@@ -29,52 +31,39 @@ public class DemoScheduler {
 	public JobDetail jobDetail() {
 		JobBuilder jobBuilder = JobBuilder.newJob(DemoJob.class)
 				.storeDurably()
-				.withIdentity("demo_job", "DemoGroup")
-				.withDescription("Invoke of DemoJob")
-				.usingJobData("flag", false);
-		
-		return jobBuilder.build();
-	}
-
-	@Bean("job1")
-	public JobDetail jobDetail1() {
-		JobDataMap jobDataMap = new JobDataMap();
-		jobDataMap.put("flag", true);
-		
-		JobBuilder jobBuilder = JobBuilder.newJob(DemoJob.class)
-				.storeDurably()
-				.withIdentity("demo_job1", "DemoGroup")
-				.withDescription("Invoke of DemoJob1")
-				.setJobData(jobDataMap);
+				.withIdentity("demo_job", GROUP_NAME)
+				.withDescription("Invoke of DemoJob");
 		
 		return jobBuilder.build();
 	}
 	
 	@Bean
-	public Trigger trigger(@Qualifier("job") JobDetail job) {
+	public Trigger trigger(JobDetail job) {
 		return TriggerBuilder.newTrigger()
 				.forJob(job)
-				.withIdentity("Demo_Trigger", "DemoGroup")
+				.withIdentity("Demo_Trigger", GROUP_NAME)
 				.withDescription("Demo Trigger")
 				.withSchedule(
 						simpleSchedule()
 						.repeatForever()
 						.withIntervalInMilliseconds(DemoService.EXECUTION_TIME)
 				)
+				.usingJobData("flag", false)
 				.build();
 	}
 	
 	@Bean
-	public Trigger trigger1(@Qualifier("job1") JobDetail job) {
+	public Trigger trigger1(JobDetail job) {
 		return TriggerBuilder.newTrigger()
 				.forJob(job)
-				.withIdentity("Demo_Trigger1", "DemoGroup")
+				.withIdentity("Demo_Trigger1", GROUP_NAME)
 				.withDescription("Demo Trigger")
 				.withSchedule(
 						simpleSchedule()
 						.repeatForever()
 						.withIntervalInMilliseconds(DemoService.EXECUTION_TIME)
 				)
+				.usingJobData("flag", true)
 				.build();
 	}
 
