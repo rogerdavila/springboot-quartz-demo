@@ -27,14 +27,11 @@ public class DemoScheduler {
 
 	@Bean("job")
 	public JobDetail jobDetail() {
-		JobDataMap jobDataMap = new JobDataMap();
-		jobDataMap.put("flag", false);
-		
 		JobBuilder jobBuilder = JobBuilder.newJob(DemoJob.class)
 				.storeDurably()
 				.withIdentity("demo_job", "DemoGroup")
 				.withDescription("Invoke of DemoJob")
-				.setJobData(jobDataMap);
+				.usingJobData("flag", false);
 		
 		return jobBuilder.build();
 	}
